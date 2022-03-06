@@ -2,6 +2,7 @@
 #include"PinDefinitionsAndMore.h"
 #include <IRremote.hpp>
 #define DECODE_NEC
+#define LED_BUILTIN 2
 
 const byte ledPin = 2;       
 const byte interruptPin = 0; 
