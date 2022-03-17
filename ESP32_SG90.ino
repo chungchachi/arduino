@@ -75,7 +75,7 @@ void loop() {
 
 void rotate()
 {
-  pos = pos +360;
+  pos = pos +30;
 
   if (pos >=180)
     pos = 0;
