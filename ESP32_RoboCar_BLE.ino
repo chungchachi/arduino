@@ -105,7 +105,7 @@ void setup() {
   motor.motorStop(motorL);
     
   // Create the BLE Device
-  BLEDevice::init("ESP32-UART");
+  BLEDevice::init("ESP32-chungchachi");
 
   // Create the BLE Server
   pServer = BLEDevice::createServer();
