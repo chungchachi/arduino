@@ -78,11 +78,11 @@ void loop(){
             // turns the GPIOs on and off
             if (header.indexOf("GET /2/on") >= 0) {
               Serial.println("GPIO 2 on");
-              output26State = "on";
+              output2State = "on";
               digitalWrite(output2, HIGH);
             } else if (header.indexOf("GET /2/off") >= 0) {
               Serial.println("GPIO 2 off");
-              output26State = "off";
+              output2State = "off";
               digitalWrite(output2, LOW);
             } 
               
