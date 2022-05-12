@@ -34,7 +34,7 @@ void callback_light(CoapPacket &packet, IPAddress ip, int port) {
     LEDSTATE = false;
   else if(message.equals("1"))
     LEDSTATE = true;
-  Serial.println(LEDSTATE)    
+  Serial.println(LEDSTATE);    
   if (LEDSTATE) {
     digitalWrite(ledPin, HIGH) ; 
     coap.sendResponse(ip, port, packet.messageid, "1");
