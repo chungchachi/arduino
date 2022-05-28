@@ -2,7 +2,7 @@
 #include <WiFi.h>
 #include <Wire.h>
 #include <EEPROM.h>
-
+//遠程控制
 #include "RC.h"
 
 #define WIFI_CHANNEL 4
@@ -13,14 +13,17 @@
 //#define webServer // use of webserver to change PID
 
 extern int16_t accZero[3];
+//滾動、俯仰和偏航控制器
 extern float yawRate;
 extern float rollPitchRate;
+//PID控制器
 extern float P_PID;
 extern float I_PID;
 extern float D_PID;
 extern float P_Level_PID;
 extern float I_Level_PID;
 extern float D_Level_PID;
+
 
 volatile boolean recv;
 //volatile int peernum = 0;
@@ -46,6 +49,7 @@ void recv_cb(const uint8_t *macaddr, const uint8_t *data, int len)
 };
 
 #define ACCRESO 4096
+//週期
 #define CYCLETIME 3
 #define MINTHROTTLE 1090
 #define MIDRUD 1495
@@ -89,16 +93,17 @@ void setup()
   Serial.begin(115200); Serial.println();
 
   delay(3000); // give it some time to stop shaking after battery plugin
+  //執行mpu6050
   MPU6050_init();
   MPU6050_readId(); // must be 0x68, 104dec
-  
+  //執行EEPROM
   EEPROM.begin(64);
   if (EEPROM.read(63) != 0x55) Serial.println("Need to do ACC calib");
   else ACC_Read(); // eeprom is initialized
   if (EEPROM.read(62) != 0xAA) Serial.println("Need to check and write PID");
   else PID_Read(); // eeprom is initialized
 
-  
+  //連接網路
   WiFi.mode(WIFI_STA); // Station mode for esp-now 
   #if defined webServer
     setupwebserver();
@@ -139,7 +144,7 @@ void loop()
     #if !defined externRC  
       buf_to_rc();
     #endif
-
+    
     if (debugvalue == 4) Serial.printf("%4d %4d %4d %4d \n", rcValue[0], rcValue[1], rcValue[2], rcValue[3]); 
   
     if      (rcValue[AU1] < 1300) flightmode = GYRO;
@@ -149,7 +154,7 @@ void loop()
       zeroGyroAccI();
       oldflightmode = flightmode;
     }
-
+    //飛行設定
     if (armed) 
     {
       rcValue[THR]    -= THRCORR;
@@ -183,6 +188,7 @@ void loop()
 
   writeServo();
   
+  //自動保險裝置
   // Failsave part
   if (now > rxt+90)
   {
@@ -190,7 +196,8 @@ void loop()
     if (debugvalue == 5) Serial.printf("RC Failsafe after %d \n",now-rxt);
     rxt = now;
   }
-
+  
+  // 語法剖析器
   // parser part
   if (Serial.available())
   {
@@ -258,6 +265,7 @@ void loop()
         Serial.println("WPxx, WIxx, WDxx - write level PID, example: WD21");
       }
     }
+    //指令集
     else if (ch >= '0' && ch <='9') debugvalue = ch -'0';
     else
     {
