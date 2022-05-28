@@ -1,4 +1,4 @@
-//pid控制器計算公式
+//pid控制器各參數計算公式
 float yawRate = 5.0;
 float rollPitchRate = 5.0;
 
