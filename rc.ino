@@ -1,4 +1,4 @@
-
+//rc自定義函式庫
 #if defined externRC
 //------------------------------------------------
   #define PPMIN_CHANNELS 6  // dont raise this
