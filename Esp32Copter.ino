@@ -175,17 +175,17 @@ void loop()
     if (debugvalue == 5) Serial.printf("RC input ms: %d\n",now - rxt);
     rxt = millis();
   }
-
+  //陀螺儀獲取gyroadc[]
   Gyro_getADC();
-  
+  //加速度計獲取accadc[]
   ACC_getADC();
-
+  //獲取估算的姿態，主要處理ACC、Gyro和Mag傳感器數據
   getEstimatedAttitude();
 
   pid();
 
   mix();
-
+  //連接四個螺旋槳
   writeServo();
   
   //自動保險裝置
