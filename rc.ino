@@ -79,18 +79,18 @@ void mix()
   */
 }
 
-
+//四個螺旋槳的連接
 #if defined PWMOUT //----------------------------------------------
 
-const int MotPin0 = 32;  //HR
-const int MotPin1 = 33;  //VR
-const int MotPin2 = 25;  //HL
-const int MotPin3 = 26;  //VL
+const int MotPin0 = 32;  //HR(右後)
+const int MotPin1 = 33;  //VR(前右)
+const int MotPin2 = 25;  //HL(左後)
+const int MotPin3 = 26;  //VL(前左)
 const int MotChannel0 = 0;
 const int MotChannel1 = 1;   
 const int MotChannel2 = 2;
 const int MotChannel3 = 3;
-
+//MotChannel輸出到servo的大小
 void writeServo() 
 {
   ledcWrite(MotChannel0, servo[0]);
